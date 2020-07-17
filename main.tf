@@ -12,11 +12,6 @@ resource "tencentcloud_cbs_storage" "default" {
   tags              = var.tags
 }
 
-data "tencentcloud_cbs_storages" "this" {
-  count      = local.count_storage
-  storage_id = tencentcloud_cbs_storage.default[count.index].id
-}
-
 resource "tencentcloud_cbs_snapshot_policy" "default" {
   count                = local.count_policy
   retention_days       = var.retention_days
@@ -25,21 +20,16 @@ resource "tencentcloud_cbs_snapshot_policy" "default" {
   snapshot_policy_name = var.snapshot_policy_name
 }
 
-data "tencentcloud_cbs_snapshot_policies" "this" {
-  count              = local.count_policy
-  snapshot_policy_id = tencentcloud_cbs_snapshot_policy.default[count.index].id
-}
-
 resource "tencentcloud_cbs_snapshot_policy_attachment" "default" {
   count              = (local.count_policy > 0 && local.count_storage > 0) ? 1 : 0
-  snapshot_policy_id = data.tencentcloud_cbs_snapshot_policies.this[count.index].snapshot_policy_id
-  storage_id         = data.tencentcloud_cbs_storages.this[count.index].storage_id
+  snapshot_policy_id = tencentcloud_cbs_snapshot_policy.default[count.index].id
+  storage_id         = tencentcloud_cbs_storage.default[count.index].id
 }
 
 resource "tencentcloud_cbs_storage_attachment" "default" {
   count       = (local.count_instance > 0 && local.count_storage > 0) ? 1 : 0
   instance_id = var.instance_id
-  storage_id  = data.tencentcloud_cbs_storages.this[count.index].storage_id
+  storage_id  = tencentcloud_cbs_storage.default[count.index].id
 }
 
 resource "tencentcloud_cbs_snapshot" "default" {
