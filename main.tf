@@ -1,8 +1,3 @@
-provider "tencentcloud" {
-  version = ">=1.19.0"
-  region  = var.region != "" ? var.region : null
-}
-
 resource "tencentcloud_cbs_storage" "default" {
   count             = local.count_storage
   availability_zone = var.availability_zone
@@ -10,6 +5,9 @@ resource "tencentcloud_cbs_storage" "default" {
   storage_size      = var.storage_size > 0 ? var.storage_size : 0
   storage_type      = var.storage_type
   tags              = var.tags
+  snapshot_id       = var.snapshot_id
+  charge_type       = var.charge_type
+  encrypt           = var.encrypt
 }
 
 resource "tencentcloud_cbs_snapshot_policy" "default" {

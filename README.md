@@ -45,11 +45,13 @@ module "cbs" {
  
  | Name | Description | Type | Default | Required |
  |------|-------------|:----:|:-----:|:-----:|
- | region | TencentCloud region to launch resources. | string |  | no 
  | availability_zone | The available zone that the CBS instance locates at. | string | null | no 
  | storage_name | Name of CBS. | string | null | no 
  | storage_type | Type of CBS medium. | string | null | no 
  | storage_size | Volume of CBS, and unit is GB. | number | 0 | no 
+ | snapshot_id | ID of the snapshot. If specified, created the CBS by this snapshot. | string | null | no 
+ | charge_type | The charge type of CBS instance. | string | null | no 
+ | encrypt | Indicates whether CBS is encrypted. | bool | false | no 
  | instance_id | ID of the CVM instance. | string | null | no 
  | tags | The available tags within this CBS. | map | {} | no 
  | repeat_weekdays | Periodic snapshot is enabled, the available values are [0, 1, 2, 3, 4, 5, 6]. | list | [] | no 
