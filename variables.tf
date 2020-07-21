@@ -1,8 +1,3 @@
-variable "region" {
-  description = "TencentCloud region to launch resources."
-  default     = ""
-}
-
 variable "storage_type" {
   description = "Type of CBS medium."
   type        = string
@@ -24,6 +19,24 @@ variable "availability_zone" {
   description = "The available zone that the CBS instance locates at."
   type        = string
   default     = null
+}
+
+variable "snapshot_id" {
+  description = "ID of the snapshot. If specified, created the CBS by this snapshot."
+  type        = string
+  default     = null
+}
+
+variable "charge_type" {
+  description = "The charge type of CBS instance."
+  type        = string
+  default     = null
+}
+
+variable "encrypt" {
+  description = "Indicates whether CBS is encrypted."
+  type        = bool
+  default     = false
 }
 
 variable "repeat_hours" {

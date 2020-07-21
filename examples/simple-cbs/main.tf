@@ -1,7 +1,3 @@
-provider "tencentcloud" {
-  region = "ap-guangzhou"
-}
-
 /*
 //cbs bind cvm instance.
 module "cbs" {
